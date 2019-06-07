@@ -56,3 +56,10 @@ Copy the SMTP credentials from AWS to 2 Jenkins sections: E-mail Notification (b
 |         |         |      |         |         |         |     |         |               |
 +---------+         +------+         +---------+         +-----+         +---------------+
 ```
+# 5. Create IAM Role, Security Group and Key Pair for Build Servers
+IAM Role for EC2 with ElasticBeanstalkFullAccess policy. Security Group with only SSH from Jenkins Security Group
+# 6. Add Jenkins global credentials
+- SSH username with private key
+- Username ec2-user
+- Private key from the Key Pair
+
