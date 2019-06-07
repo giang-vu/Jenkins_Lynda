@@ -1,16 +1,16 @@
-# 1. Bootstrap script
+# 1. Install Java 8, NGINX, Jenkins
 ```
-wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update -y
 sudo apt-get install -y openjdk-8-jdk
 sudo apt-get install -y nginx
 sudo apt-get install -y jenkins 
 ```
-
 # 2. Configure NGINX
 NGINX will be the reverse proxy server in front of Jenkins web app
 ```
+# sudo su -
 # unlink /etc/nginx/sites-enabled/default
 # vim /etc/nginx/conf.d/jenkins.conf
 
@@ -31,4 +31,18 @@ server {
 # nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
+# systemctl restart nginx
 ```
+# 3. Configure Simple Email Service (SES)
+SES is supported only in regions:
+US East (N. Virginia)
+EU (Ireland)
+US West (Oregon)
+# 4. Create SMTP credentials for SES
+Copy the SMTP credentials from AWS to both Jenkins sections:
+E-mail Notification (basic functionality for Jenkins to send email)
+Extended E-mail Notification (plug-in that gives Jenkins jobs additional functionality for sending email)
+- System Admin e-mail address
+- SMTP server email-smtp.us-east-1.amazonaws.com
+- Use SSL
+- SMTP Port 465
