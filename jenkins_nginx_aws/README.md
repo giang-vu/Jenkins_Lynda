@@ -34,14 +34,9 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 # systemctl restart nginx
 ```
 # 3. Configure Simple Email Service (SES)
-SES is supported only in regions:
-US East (N. Virginia)
-EU (Ireland)
-US West (Oregon)
+SES is supported only in 3 regions: US East (N. Virginia), EU (Ireland) and US West (Oregon)
 # 4. Create SMTP credentials for SES
-Copy the SMTP credentials from AWS to both Jenkins sections:
-E-mail Notification (basic functionality for Jenkins to send email)
-Extended E-mail Notification (plug-in that gives Jenkins jobs additional functionality for sending email)
+Copy the SMTP credentials from AWS to 2 Jenkins sections: E-mail Notification (basic functionality for Jenkins to send email) and Extended E-mail Notification (plug-in that gives Jenkins jobs additional functionality for sending email)
 - System Admin e-mail address
 - SMTP server email-smtp.us-east-1.amazonaws.com
 - Use SSL
