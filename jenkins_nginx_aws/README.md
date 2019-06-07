@@ -101,7 +101,7 @@ Create a GitHub token for authentication and add to Jenkins GitHub Server. The s
 - admin repo_hook scopes allow Jenkins to register its web hook when we connect a repo to a job on the Jenkins server.
 # Create and test a Webhook
 - Add a GitHub Server with GitHub credentials. Remember to check Manage hooks (automatically create a Webhook on GitHub repository Settings instead of setting up manually).
-- Create a freestyle project
+- Create a freestyle project name "jenkins_git_webhook_test"
 	- GitHub project: https://github.com/giang-vu/jenkins_git_webhook_test
 	- Source Code Management: Git: Repository URL: https://github.com/giang-vu/jenkins_git_webhook_test
 	- Build Triggers: GitHub hook trigger for GITScm polling
@@ -110,7 +110,8 @@ Create a GitHub token for authentication and add to Jenkins GitHub Server. The s
 
 # 4. Deployment to Elastic Beanstalk
 - Create an EB application name "my-eb-app", Web server environment name "development" with Python platform and use Sample application.
-- Download the Python sample code and upload to GitHub
+- Download the Python sample code and upload to GitHub.
+- Edit the project "jenkins_git_webhook_test" configuration:
 	- Restrict where this project can be run: elastic-beanstalk
 	- Source Code Management: Git: Additional Behaviours: Check out to specific local branch (avoid warnings)
 	- Build: Execute shell:
@@ -128,4 +129,9 @@ Create a GitHub token for authentication and add to Jenkins GitHub Server. The s
 	eb health
 	eb status
 	```
-- Commit changes to the application.py will trigger the project to run. Check the Elastic Beanstalk to see the change are deployed.
+	- Post-build Actions: Editable Email Notification:
+		- Add email address to Project Recipient List
+		- Trigger: Always
+		- Remove Developers
+		- Add $BUILD_LOG to Content
+- Commit changes to the application.py will trigger the project to run. Check the Elastic Beanstalk to see the change are deployed. Check email to see the notification.
