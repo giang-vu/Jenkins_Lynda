@@ -1,3 +1,10 @@
+```
++------+         +---------+         +---------+
+|      |         | NGINX   |         |         |
+| User +---------> reverse +---------> Jenkins |
+|      |         | proxy   |         |         |
++------+         +---------+         +---------+
+```
 # 1. Install Java 8, NGINX, Jenkins
 ```
 sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
@@ -41,3 +48,11 @@ Copy the SMTP credentials from AWS to 2 Jenkins sections: E-mail Notification (b
 - SMTP server email-smtp.us-east-1.amazonaws.com
 - Use SSL
 - SMTP Port 465
+```
++---------+         +------+         +---------+         +-----+         +---------------+
+|         |         |      |         |         |         |     |         |               |
+| Jenkins +---------> Key  +---------> Build   +---------> IAM +---------> Resources     |
+|         |         | Pair |         | Servers |         |     |         | (S3, EC2, EB) |
+|         |         |      |         |         |         |     |         |               |
++---------+         +------+         +---------+         +-----+         +---------------+
+```
