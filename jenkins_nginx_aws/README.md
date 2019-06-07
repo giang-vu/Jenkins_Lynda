@@ -1,8 +1,3 @@
-+------+        +---------+        +---------+
-|      |        | NGINX   |        |         |
-| User +--------> reverse +--------> Jenkins |
-|      |        | proxy   |        |         |
-+------+        +---------+        +---------+
 # 1. Install Java 8, NGINX, Jenkins
 ```
 sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
