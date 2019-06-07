@@ -83,3 +83,21 @@ We should use the private IP (or private DNS name) to keep traffic inside the AW
 - Host (private IP or private DNS name of the build servers)
 - Credentials ec2-user(build-servers)
 - Non verifying verification strategy
+# 3. Connect Jenkins with Webhook
+```
+                                    Notify via
++------+    Commit    +--------+    Webhook endpoint    +---------+
+| Code +--------------> GitHub +------------------------> Jenkins |
++------+              +--------+                        +---------+
+```
+# Connect Jenkins to GitHub
+Create a GitHub token for authentication and add to Jenkins GitHub Server. The scopes of the token need to have repo and admin:repo_hook.
+- repo scopes allow Jenkins to get detailed information about the repositories.
+- admin repo_hook scopes allow Jenkins to register its web hook when we connect a repo to a job on the Jenkins server.
+# Create and test a Webhook
+- Add a GitHub Server with GitHub credentials. Remember to check Manage hooks (automatically create a Webhook on GitHub repository Settings instead of setting up manually).
+- Create a freestyle project
+	- Source Code Management: Git: Repository URL: https://github.com/giang-vu/jenkins_git_webhook_test
+	- Build Triggers: GitHub hook trigger for GITScm polling
+	- Build: Execute shell: cat README.md
+- Commit changes on README.md will trigger the job to run.
