@@ -65,16 +65,16 @@ pipeline {
     agent {
         docker {
             label 'docker-agent' //specify the agent by labels
-            image 'node:9-alpine'
+            image 'ubuntu:latest'
         }
     }
     stages {
         stage('Test'){
             steps {
-                sh 'node --version'
+                sh 'uname -a'
             }
         }
     }
 }
 ```
-Check log to see the version output.
+Check log to see the operating system output.
