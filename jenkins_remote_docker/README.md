@@ -57,3 +57,25 @@ Add Docker plugin:
 - Docker Host URI: tcp://[agent IP address]:4243
 - Test connection should return API version
 - Check Enabled
+
+# 4. Test by pipeline
+Create a pipeline project.
+```
+pipeline {
+    agent {
+        docker {
+            label 'docker-agent' //specify the agent by labels
+            image 'node:9-alpine'
+        }
+    }
+    stages {
+        stage('Test'){
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
+}
+```
+Check log to see the version output.
+```
