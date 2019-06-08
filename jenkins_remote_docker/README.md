@@ -78,4 +78,3 @@ pipeline {
 }
 ```
 Check log to see the version output.
-```
