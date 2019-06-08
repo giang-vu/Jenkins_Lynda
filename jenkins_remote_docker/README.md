@@ -11,7 +11,7 @@ sudo yum install -y openjdk-8-jdk
 sudo service docker start
 sudo chkconfig docker on
 ```
-Add new user and configure SSH
+Add new user and configure SSH.
 ```
 # sudo su -
 # useradd jenkins
@@ -21,15 +21,39 @@ Add new user and configure SSH
 # chmod 700 .ssh
 # vim .ssh/authorized_keys
 
-<public key>
+[public key]
 
 # chmod 600 .ssh/authorized_keys
 ```
-Add a new node:
+Enable Docker Remote API by edit the ExecStart line in /lib/systemd/system/docker.service.
+```
+# vim /lib/systemd/system/docker.service
+
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock
+
+# systemctl daemon-reload
+# service docker restart
+# curl http://localhost:4243/version
+[The output should be in JSON format]
+```
+For Ubuntu:
+```
+ExecStart=/usr/bin/docker daemon -H fd:// -H tcp://0.0.0.0:4243
+```
+
+# 3. Add new node and Docker plugin on Jenkins Master
+Add new node:
 - Name: docker-agent
 - Remote root directory: /home/jenkins
 - Labels: docker-agent
 - Launch agent agents via SSH
-- Host: <agent IP address>
+- Host: [agent IP address]
 - Add new SSH credential with private key, username: enkins
 - Non verifying verification strategy
+
+Add Docker plugin:
+- Install Docker plugin.
+- Add Jenkins system Cloud - Docker
+- Docker Host URI: tcp://[agent IP address]:4243
+- Test connection should return API version
+- Check Enabled
