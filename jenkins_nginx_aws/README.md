@@ -7,7 +7,7 @@
 +------+         +---------+         +---------+
 ```
 # Launch Jenkins Master
-Use bootstrap script to install Java 8, NGINX, Jenkins.
+Use bootstrap script to install Java 8, NGINX, Jenkins on Ubuntu EC2.
 ```
 #!/bin/bash
 sudo wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
