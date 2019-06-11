@@ -2,7 +2,7 @@
 https://github.com/giang-vu/Jenkins_Lynda/tree/master/jenkins_nginx_aws#launch-jenkins-master
 
 # 2. Launch Agent
-Use bootstrap script to install Docker and Java 8 on Amazon AMI EC2.
+Use bootstrap script to install Docker and Java 8 on Amazon AMI EC2. Add new jenkins user and configure SSH.
 ```
 #!/bin/bash
 sudo yum update -y
@@ -10,20 +10,14 @@ sudo yum install -y docker
 sudo yum install -y openjdk-8-jdk
 sudo service docker start
 sudo chkconfig docker on
-```
-Add new user and configure SSH.
-```
-# sudo su -
-# useradd jenkins
-# usermod -a -G docker jenkins
-# su - jenkins
-# mkdir .ssh
-# chmod 700 .ssh
-# vim .ssh/authorized_keys
-
-[public key]
-
-# chmod 600 .ssh/authorized_keys
+sudo useradd jenkins
+sudo usermod -a -G docker jenkins
+sudo mkdir /home/jenkins/.ssh
+sudo cp /home/ec2-user/.ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
+sudo chmod 600 /home/jenkins/.ssh/authorized_keys
+sudo chmod 700 /home/jenkins/.ssh
+sudo chown jenkins:jenkins /home/jenkins/.ssh/authorized_keys
+sudo chown jenkins:jenkins /home/jenkins/.ssh
 ```
 Enable Docker Remote API by edit the ExecStart line in /lib/systemd/system/docker.service.
 ```
