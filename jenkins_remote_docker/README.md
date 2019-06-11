@@ -16,7 +16,7 @@ Add new user and configure SSH.
 # sudo su -
 # useradd jenkins
 # usermod -a -G docker jenkins
-# su jenkins -
+# su - jenkins
 # mkdir .ssh
 # chmod 700 .ssh
 # vim .ssh/authorized_keys
